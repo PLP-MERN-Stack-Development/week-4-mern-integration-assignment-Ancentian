@@ -50,6 +50,13 @@ export const postService = {
     return response.data;
   },
 
+  // Get My published posts
+  getMyPosts: async (page = 1, limit = 10,) => {
+    let url = `/posts/get-my-posts?page=${page}&limit=${limit}`;
+    const response = await api.get(url);
+    return response.data;
+  },
+
   // Get a single post by ID or slug
   getPost: async (idOrSlug) => {
     const response = await api.get(`/posts/${idOrSlug}`);
@@ -113,6 +120,7 @@ export const authService = {
   // Login user
   login: async (credentials) => {
     const response = await api.post('/auth/login', credentials);
+    // console.log('Login response:', response.data.user);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));

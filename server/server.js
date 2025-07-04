@@ -8,9 +8,10 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 // Import routes
-const postRoutes = require('./routes/posts');
-const categoryRoutes = require('./routes/categories');
-const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/postRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const authRoutes = require('./routes/authRoutes');
+const errorHandler = require('./middleware/errorHandler');
 
 // Load environment variables
 dotenv.config();
@@ -74,5 +75,8 @@ process.on('unhandledRejection', (err) => {
   // Close server & exit process
   process.exit(1);
 });
+
+// Global error handler
+app.use(errorHandler);
 
 module.exports = app; 
